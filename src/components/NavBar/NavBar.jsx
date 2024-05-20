@@ -13,7 +13,7 @@ import { FaArrowDown } from "react-icons/fa";
 
 const NavBar = () => {
   return (
-    <Flex height={'20vh'} width={'100%'} justify={'space-between'} align={'center'} backgroundColor={'#DBD8F0'}>
+    <Flex height={'20vh'} width={'100%'} justify={'space-between'} align={'center'} backgroundColor={'general_color.powderblue'}>
       <Heading fontSize={'1x'} margin={2}>Logo</Heading>
       <Menu>
         <MenuButton as={Button} rightIcon={<FaArrowDown />}>
