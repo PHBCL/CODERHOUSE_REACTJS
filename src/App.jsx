@@ -1,6 +1,7 @@
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import NavBar from './components/NavBar/NavBar'
 import ItemListContainer from './components/ItemListContainer/ItemListContainer'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 const theme = extendTheme({
   colors: {
@@ -20,8 +21,13 @@ const theme = extendTheme({
 function App() {
   return (
     <ChakraProvider theme={theme}>
-       <NavBar />
-       <ItemListContainer titulo="ECommerce" />
+      <BrowserRouter>
+          <NavBar />
+          <Routes>
+            <Route path='/' element={<ItemListContainer titulo="ECommerce" />} /> 
+            <Route path='/categorias/:categoryId' element={<ItemListContainer titulo="ECommerce" />} /> 
+          </Routes>
+      </BrowserRouter>
     </ChakraProvider>
   )
 }
