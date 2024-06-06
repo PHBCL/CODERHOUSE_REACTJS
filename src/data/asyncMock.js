@@ -14,7 +14,7 @@ export const productos = [
     nombre: "Buzo El viaje de Chihiro",
     precio: 13000,
     categoria: "Buzos",
-    stock: 5,
+    stock: 2,
     descripcion:
       "Buzo Unisex 100% Algodón. Cuello Redondo con refuerzo en los cuellos y mangas",
     img: "https://i0.wp.com/rockdreams.com.co/wp-content/uploads/2024/04/Photo-11-04-24-10-37-27%E2%80%AFAM-14-1.jpg?fit=1080%2C1350&ssl=1p",
@@ -63,6 +63,16 @@ export const getProductsByCategory = (categoria) => {
   return new Promise((res) => {
     const productosFiltrados = productos.filter((prod) => prod.categoria === categoria);
     setTimeout(() => {res(productosFiltrados);
+    }, 2000);
+  });
+};
+
+
+
+export const getProductsById = (id) => {
+  return new Promise((res) => {
+    const producto = productos.find((prod) => prod.id === parseInt(id, 10));
+    setTimeout(() => {res(producto);
     }, 2000);
   });
 };

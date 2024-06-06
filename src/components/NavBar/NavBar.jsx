@@ -7,36 +7,33 @@ import {
   MenuItem,
   Button,
   Flex,
-  Heading
+  Image,
+  Link as ChakraLink
 } from '@chakra-ui/react'
 import { FaArrowDown } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import logo from '../../assets/logo.png';
 
 const NavBar = () => {
   return (
     <Flex height={'10vh'} width={'100%'} justify={'space-between'} align={'center'} backgroundColor={'general_color.powderblue'}>
-      <Heading fontSize={'1x'} margin={2}>Logo</Heading>
+      <ChakraLink as={Link} width={'30%'} to='/'>
+          <Image w='30%' src={logo} />
+      </ChakraLink> 
       <Menu>
         <MenuButton as={Button} rightIcon={<FaArrowDown />}>
           Categorias
         </MenuButton>
         <MenuList>
                 <MenuItem>
-                  <Link to={'/'}>Todas</Link>
-                </MenuItem>
-
-                <MenuItem>
                   <Link to={'/categorias/Remeras'}>Remeras</Link>
                 </MenuItem>
-                
                 <MenuItem>
                   <Link to={'/categorias/Buzos'}>Buzos</Link>
                 </MenuItem>
-
                 <MenuItem>
                   <Link to={'/categorias/Pijamas'}>Pijamas</Link>
                 </MenuItem>
-
                 <MenuItem>
                   <Link to={'/categorias/Zapatillas'}>Zapatillas</Link>
                 </MenuItem>
