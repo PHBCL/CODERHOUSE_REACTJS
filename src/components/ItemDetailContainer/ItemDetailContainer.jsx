@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { BarLoader } from 'react-spinners'
 import { getProductsById } from '../../data/asyncMock'
 import ItemDetail from '../ItemDetail/ItemDetail'
@@ -9,14 +9,15 @@ const ItemDetailContainer = () => {
   const [ producto, setProducto ] = useState({})
   const [ loading, setLoading ] = useState(true)
   const { productId } = useParams()
-
+  const navigate = useNavigate()
   useEffect(() => {
     setLoading(true)
 
     getProductsById(productId)
     .then((data) => {
-        console.log(data)
-        setProducto(data)})
+        if(!data){navigate('/*')}
+        else{setProducto(data)}
+    })
     .catch((error) => console.log(error))
     .finally(() => setLoading(false))
   },[productId])
