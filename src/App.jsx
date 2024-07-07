@@ -5,7 +5,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer'
 import 'react-toastify/dist/ReactToastify.css';
 import PageNotFound from './components/PageNotFound/PageNotFound'
-
+import { CartContextProvider } from './context/CartContext'
+import Checkout from './components/Checkout/Checkout'
+import Cart from './components/Cart/Cart'
 
 const theme = extendTheme({
   colors: {
@@ -24,16 +26,21 @@ const theme = extendTheme({
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <BrowserRouter>
-          <NavBar />
-          <Routes>
-            <Route path='/' element={<ItemListContainer titulo="ECommerce" />} /> 
-            <Route path='/categorias/:categoryId' element={<ItemListContainer titulo="ECommerce" />} /> 
-            <Route path='/producto/:productId' element={<ItemDetailContainer  />} /> 
-            <Route path='*' element={<PageNotFound  />} /> 
-          </Routes>
-      </BrowserRouter>
+      <CartContextProvider>
+          <BrowserRouter>
+              <NavBar />
+              <Routes>
+                <Route path='/' element={<ItemListContainer title={'Tienda'} texto='soy un texto desde app'/>}/>
+                <Route path='/categorias/:categoryId'element={<ItemListContainer title={'Tienda'} />}/>
+                <Route path='/producto/:productId' element={<ItemDetailContainer />} />
+                <Route path='/cart' element={<Cart />}/>
+                <Route path='/checkout' element={<Checkout />}/>
+                <Route path='*' element={<PageNotFound  />} /> 
+              </Routes>
+          </BrowserRouter>
+        </CartContextProvider>
     </ChakraProvider>
+    
   )
 }
 

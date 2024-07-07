@@ -1,10 +1,11 @@
 import React from 'react'
-import { Card, CardBody, CardFooter, Image, Stack, Text, Button, Divider, Heading, Center, Flex } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, CardFooter, Image, Stack, Text, ButtonGroup, Button, Divider, Heading, Center, Flex } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
-const Item = ({nombre, precio, img, id}) => {
+const Item = ({nombre, precio, stock, img, id, texto}) => {
   return (
     <Card maxW='sm' border='3px' borderColor='#243F4D' boxShadow='2xl'>
+
       <CardBody>
         <Image
           src={img}
@@ -17,14 +18,20 @@ const Item = ({nombre, precio, img, id}) => {
         />
         <Stack mt='6' spacing='3'>
           <Heading size='md'>{nombre}</Heading>
+          <Heading size={'sm'}>{texto}</Heading>
           <Text color='blue.600' fontSize='2xl'>
             ${precio}
           </Text>
+          <Text color='blue.600' fontSize='2xl'>
+            stock: {stock}
+          </Text>
         </Stack>
       </CardBody>
-      <Center height='2px' bg={'#243F4D'}>
-      </Center>
+
+      <Center height='2px' bg={'#243F4D'}></Center>
       <Divider color={'#243F4D'}  />
+
+
       <CardFooter>
         <Flex spacing='2' justifyContent={'center'} align={'center'} w={'100%'}>
           <Button 
@@ -33,7 +40,9 @@ const Item = ({nombre, precio, img, id}) => {
             color={'#fff'}
             _hover={{ bg: '#3E6478', color: '#fff' }}
             >
-            <Link to={`/producto/${id}`}>Ver detalle</Link>
+              <Link to={`/producto/${id}`}>
+                Ver detalle
+              </Link>
           </Button>
         </Flex>
       </CardFooter>
