@@ -6,6 +6,7 @@ import { Flex } from '@chakra-ui/react'
 import { PacmanLoader } from 'react-spinners'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../config/firebase'
+import ItemDetail2 from '../ItemDetail/ItemDetail2'
 
 const ItemDetailContainer = () => {
     const [ producto, setProducto ] = useState({})
@@ -40,8 +41,9 @@ const ItemDetailContainer = () => {
                 </Flex>
                 : 
                 <>
-                <Flex justify={'center'} align={'center'} h={'70vh'}>
-                    <ItemDetail {...producto} />
+                <Flex justify={'center'} align={'center'} h={'120vh'}>
+                    {/* <ItemDetail {...producto} /> */}
+                    <ItemDetail2 {...producto} />
                 </Flex>
                 </>
             }
