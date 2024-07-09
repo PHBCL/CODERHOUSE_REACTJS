@@ -13,37 +13,37 @@ const ItemCount = ({stock, initialValue, onAdd}) => {
     }
 
   return (
-    <Flex direction={'column'} align={'center'} justify={'center'} w={'100%'}>
-      <Box className='counterContainer'>
-        <Button         
-          bg={'#243F4D'} 
-          color={'#fff'}
-          _hover={{ bg: '#3E6478', color: '#fff' }} 
-          className='btnCounter'  
-          onClick={decrementar}>
-            -
-        </Button>
-        <Heading p={2}>{count}</Heading>
-        <Button         
-          bg={'#243F4D'} 
-          color={'#fff'}
-          _hover={{ bg: '#3E6478', color: '#fff' }}
-          className='btnCounter'  
-          onClick={incrementar}>
-            +
-        </Button>
-      </Box>
-      <Button 
-        bg={'#243F4D'} 
-        color={'#fff'}
-        w={'100%'}
-        h={'5vh'}
-        borderRadius={0}
-        _hover={{ bg: '#3E6478', color: '#fff' }} 
-        onClick={() => onAdd(count)}
-          >Agregar al carrito
-        </Button>
-    </Flex>
+    <Flex m={5} ml={6} >
+        <Box className='counterContainer'>
+          <Button         
+            bg={'#243F4D'} 
+            color={'#fff'}
+            _hover={{ bg: '#3E6478', color: '#fff' }} 
+            className='btnCounter'  
+            onClick={decrementar}>
+              -
+          </Button>
+          <Heading p={2}>{count}</Heading>
+          <Button         
+            bg={'#243F4D'} 
+            color={'#fff'}
+            _hover={{ bg: '#3E6478', color: '#fff' }}
+            className='btnCounter'  
+            onClick={incrementar}>
+              +
+          </Button>
+        </Box>
+        <Box ml={5} mt={2}>
+            <Button 
+            bg={'#243F4D'} 
+            color={'#fff'}
+            borderRadius={50}
+            _hover={{ bg: '#3E6478', color: '#fff' }} 
+            onClick={() => onAdd(count)}
+              >Agregar al carrito
+            </Button>
+        </Box>
+   </Flex>
   )
 }
 

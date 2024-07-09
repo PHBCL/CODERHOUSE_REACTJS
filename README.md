@@ -24,6 +24,7 @@
 - React toastify
 - SweelAlert2
 - Giphy
+- react-number-format
 
 
 ### Instalacion
