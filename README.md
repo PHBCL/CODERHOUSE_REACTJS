@@ -63,4 +63,4 @@
 - Formulario de contacto
 
 #### Datos de Contacto
-- Linkedin
+- [Linkedin](https://www.linkedin.com/in/pedro-hurtado-246ab052/)
