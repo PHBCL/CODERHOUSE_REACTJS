@@ -29,9 +29,9 @@
 ### Instalacion
 
 - Clonar repositorio
-    - git clone 
+    - git clone https://github.com/PHBCL/CODERHOUSE_REACTJS.git
 - Ingresar a la carpeta
-    - cd [carpeta]
+    - cd CODERHOUSE_REACTJS
 - Instalar las dependencias
     - npm install
 - Compilamos proyecto
@@ -43,7 +43,7 @@
 #### Navbar
 - Logo
 - Menu de Categorias
-- Carrito de Compras ![image](/src/assets/react.svg)
+- ![image](/src/assets/cart.png) Carrito de Compras 
 
 #### Body
 
