@@ -4,7 +4,6 @@ import {
     FormControl,
     FormLabel,
     FormErrorMessage,
-    FormHelperText,
     Input,
     Flex,
     Center,
@@ -12,7 +11,7 @@ import {
     Button,
 
   } from '@chakra-ui/react'
-import { Timestamp, addDoc, collection } from 'firebase/firestore'
+import { Timestamp, addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { db } from '../../config/firebase'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
@@ -51,6 +50,18 @@ const Checkout = () => {
             errors.email = 'El email no es válido'
         }
 
+        if(!user.repeatedEmail){
+            errors.repeatedEmail = 'Tenés que repetir el email'
+        }else if(user.email !== user.repeatedEmail) {
+            errors.repeatedEmail = 'Los emails no coinciden'
+        }
+
+        if(!user.phone){
+            errors.phone = 'Tenés que agregar un numero de telefono'
+        }else if(user.phone.length < 8) {
+            errors.phone = 'El numero de teléfono debe tener al menos 8 caracteres'
+        }
+
 
         setError(errors)
         return Object.keys(errors).length === 0
@@ -62,40 +73,64 @@ const Checkout = () => {
             return
         }
 
+        if(cart.length === 0){
+            Swal.fire({
+                text: "El carrito esta vacio.",
+                imageUrl: "https://plus.unsplash.com/premium_vector-1707577770182-a2513199d14e?q=80&w=1015&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                imageWidth: 200,
+                imageHeight: 400
+              });
+              return
+        }
+
         const coleccion = collection(db, 'orders')
         try {
-            const order = {
-                buyer: user,
-                cart: cart,
-                total: getTotal(),
-                fecha: Timestamp.now()
+            for(const item of cart){
+                const docRef = doc(db, 'productos', item.id)
+                const productDoc = await getDoc(docRef)
+                const currentStock = productDoc.data().stock
+                if(currentStock >= item.quantity){
+                    await updateDoc(docRef, {
+                        stock: currentStock - item.quantity
+                    })
+
+                    const order = {
+                        buyer: user,
+                        cart: cart,
+                        total: getTotal(),
+                        fecha: Timestamp.now()
+                    }
+        
+                    const orderRef = await addDoc(coleccion, order)
+        
+                    Swal.fire({
+                        title: "Gracias por tu compra",
+                        text: `El número de orden es: ${orderRef.id}`,
+                        icon: "success",
+                        confirmButtonText: "Ir al inicio",
+                      }).then(() => {
+                         clearCart()
+                         navigate('/')
+                      });
+
+                }else{
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "No Hay Stock Suficiente :( "
+                      });
+                }
             }
-
-            const orderRef = await addDoc(coleccion, order)
-
-            Swal.fire({
-                title: "Gracias por tu compra",
-                text: `El número de orden es: ${orderRef.id}`,
-                icon: "success",
-                confirmButtonText: "Ir al inicio",
-              }).then(() => {
-                 clearCart()
-                 navigate('/')
-              });
         } catch (error) {
             console.log(error)
         }
-
     }
-
-    console.log(error)
   return (
     <Center mt={10}>
         <Flex direction={'column'} align={'center'} justify={'center'}>
-
             <Heading>Datos de facturación</Heading>
             <Flex w={'100%'} justify={'center'} align={'center'}>
-                <FormControl>
+                <FormControl w={'100%'} isInvalid={Object.keys(error).length > 0 }>
                     <FormLabel>Nombre</FormLabel>
                     <Input 
                         type='text' 
@@ -103,7 +138,6 @@ const Checkout = () => {
                         placeholder='Germán Piccoli'
                         onChange={updateUser}
                         />
-                    {error.name}
                     <FormErrorMessage>{error.name}</FormErrorMessage>
                     <FormLabel>Email</FormLabel>
                     <Input 
@@ -112,7 +146,7 @@ const Checkout = () => {
                         placeholder='Germánpiccoli@coderhouse.com'
                         onChange={updateUser}
                         />
-                        {error.email}
+                    <FormErrorMessage>{error.email}</FormErrorMessage>
                     <FormLabel>Repetir email</FormLabel>
                     <Input 
                         type='email' 
@@ -120,6 +154,7 @@ const Checkout = () => {
                         placeholder='Germánpiccoli@coderhouse.com'
                         onChange={updateUser}
                         />
+                    <FormErrorMessage>{error.repeatedEmail}</FormErrorMessage>
                     <FormLabel>Teléfono</FormLabel>
                     <Input 
                         type='text' 
@@ -127,6 +162,7 @@ const Checkout = () => {
                         placeholder='11223344'
                         onChange={updateUser}
                         />
+                    <FormErrorMessage>{error.phone}</FormErrorMessage>
                 </FormControl>
             </Flex>
             <Button mt={5} onClick={getOrder}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import ItemDetail from '../ItemDetail/ItemDetail'
 import { Flex } from '@chakra-ui/react'
@@ -6,12 +6,13 @@ import { Flex } from '@chakra-ui/react'
 import { PacmanLoader } from 'react-spinners'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../config/firebase'
-import ItemDetail2 from '../ItemDetail/ItemDetail2'
+import Context from '../../context/CartContext'
 
 const ItemDetailContainer = () => {
     const [ producto, setProducto ] = useState({})
     const [ loading, setLoading ] = useState(true)
     const { productId } = useParams()
+    const {currentQuantity} = useContext(Context)
 
     const navigate = useNavigate()
 
@@ -42,8 +43,7 @@ const ItemDetailContainer = () => {
                 : 
                 <>
                 <Flex justify={'center'} align={'center'} h={'120vh'}>
-                    {/* <ItemDetail {...producto} /> */}
-                    <ItemDetail2 {...producto} />
+                    <ItemDetail {...producto} currentQuantity ={currentQuantity(productId)}/>
                 </Flex>
                 </>
             }

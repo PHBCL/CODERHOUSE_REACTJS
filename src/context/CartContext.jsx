@@ -40,6 +40,37 @@ export const CartContextProvider = ({ children }) => {
         return cart.reduce((acc, item) => acc + item.quantity, 0)
     }
 
+    const decrementarItem = (id) => {
+        const updatedCart = cart.map((prod) => {
+            if(prod.id === id){
+                const newQuantity = Math.max(prod.quantity -1, 1) //reduzco sin pasar el 1 al ser el min
+                return {...prod, quantity: newQuantity}
+            }
+            return prod
+        })
+        setCart(updatedCart)
+    } 
+
+    
+    const incrementarItem = (id, stock) => {
+        const updatedCart = cart.map((prod) => {
+            if(prod.id === id){
+                const newQuantity = Math.min(prod.quantity + 1, stock) // el limite sera el stock del producto
+                return {...prod, quantity: newQuantity}
+            }
+            return prod
+        })
+        setCart(updatedCart)
+    } 
+
+    const currentQuantity = (id) => {
+        const prod = cart.find((item) => item.id === id)
+        return prod ? prod.quantity : 0
+    }
+
+
+
+
 
   return (
     <Context.Provider 
@@ -50,7 +81,10 @@ export const CartContextProvider = ({ children }) => {
             removeItem, 
             clearCart,
             getTotal,
-            getQuantity
+            getQuantity,
+            decrementarItem,
+            incrementarItem,
+            currentQuantity
         }}>
             {children}
     </Context.Provider>

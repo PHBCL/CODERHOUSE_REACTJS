@@ -17,7 +17,7 @@ import {
   import {Link } from 'react-router-dom'
 
 const Cart = () => {
-    const { cart, removeItem, clearCart, getTotal } = useContext(Context)
+    const { cart, removeItem, clearCart, getTotal, incrementarItem, decrementarItem } = useContext(Context)
     if(cart.length === 0) {
         return (
 
@@ -35,6 +35,7 @@ const Cart = () => {
         <Tr>
             <Th>Nombre</Th>
             <Th>Cantidad</Th>
+            <Th></Th>
             <Th>Precio</Th>
             <Th>Subtotal</Th>
             <Th></Th>
@@ -43,9 +44,15 @@ const Cart = () => {
         <Tbody>
             {
                 cart.map((prod) => (
+
                     <Tr key={prod.id}>
                         <Td>{prod.nombre}</Td>
                         <Td>{prod.quantity}</Td>
+                        <Td>
+                            <Button onClick={() => decrementarItem(prod.id)}>-</Button>
+                            {prod.quantity}
+                            <Button onClick={() => incrementarItem(prod.id, prod.stock)}>+</Button>
+                        </Td>
                         <Td>{prod.precio}</Td>
                         <Td>{prod.precio * prod.quantity}</Td>
                         <Td>

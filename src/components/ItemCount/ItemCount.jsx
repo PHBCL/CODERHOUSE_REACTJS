@@ -1,11 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Button, Flex, Heading } from '@chakra-ui/react'
 import './ItemCount.css'
 
-const ItemCount = ({stock, initialValue, onAdd}) => {
+const ItemCount = ({stock, initialValue, onAdd, maxAvailable}) => {
     const [ count, setCount ] = useState(initialValue)
+    const [ disable, setDisable ] = useState(false)
+    
+    useEffect(() => {
+      if(maxAvailable === 0 || count > maxAvailable ){
+        setDisable(true)
+      }else{
+        setDisable(false)
+      }
+    },[count])
+
+
     const incrementar = () => {
-        count < stock && setCount(count + 1)
+        count < maxAvailable && setCount(count + 1)
     }
 
     const decrementar = () => {
@@ -35,6 +46,7 @@ const ItemCount = ({stock, initialValue, onAdd}) => {
         </Box>
         <Box ml={5} mt={2}>
             <Button 
+            isDisabled={disable}
             bg={'#243F4D'} 
             color={'#fff'}
             borderRadius={50}
