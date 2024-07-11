@@ -2,8 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import ItemDetail from '../ItemDetail/ItemDetail'
 import { Flex } from '@chakra-ui/react'
-
-import { PacmanLoader } from 'react-spinners'
+import { RiseLoader} from 'react-spinners'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../config/firebase'
 import Context from '../../context/CartContext'
@@ -18,11 +17,13 @@ const ItemDetailContainer = () => {
 
     useEffect(() => {
         const getData = async () => {
-            // obtenemos la referencia a un producto en específico
             const queryRef = doc(db, 'productos', productId)
-            // obtenemos el documente
             const response = await getDoc(queryRef)
-            // creamos el objeto con la data y el id
+            if (!response.exists()) {
+                // Si no se encuentra el documento, redirige
+                navigate('/page_not_found'); // Ajusta esto a la ruta a la que quieres redirigir
+                return;
+            }
             const newItem = {
                 ...response.data(),
                 id: response.id
@@ -38,7 +39,7 @@ const ItemDetailContainer = () => {
               {
                 loading ? 
                 <Flex justify={'center'} align={'center'} h={'90vh'}>
-                    <PacmanLoader color="#36d7b7" />            
+                    <RiseLoader color="#36d7b7" />            
                 </Flex>
                 : 
                 <>

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import './ItemListContainer.css'
 import ItemList from '../ItemList/ItemList'
 import { useParams } from 'react-router-dom'
-import { PacmanLoader } from 'react-spinners'
+import { RiseLoader } from 'react-spinners'
 import { db } from '../../config/firebase'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 
@@ -50,7 +50,7 @@ const ItemListContainer = ({title, texto}) => {
       {
         loading ? 
         <Flex justify={'center'} align={'center'} h={'50vh'}>
-          <PacmanLoader color="#36d7b7" />
+          <RiseLoader color="#36d7b7" />
         </Flex>
         : 
         <ItemList products={products} texto={texto}/>

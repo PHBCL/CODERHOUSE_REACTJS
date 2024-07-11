@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Flex } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import { Gif } from '@giphy/react-components';
 import { GiphyFetch } from '@giphy/js-fetch-api';
 import { BarLoader } from 'react-spinners'
@@ -8,7 +8,7 @@ import { BarLoader } from 'react-spinners'
 const gf = new GiphyFetch('N755gb20XTqvcAtqmmt9D99jUahCdXoI');
 
 const PageNotFound = () => {
-  const [gif, setGif] = useState(null);
+  const [gif, setGif] = useState();
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
@@ -38,8 +38,9 @@ const PageNotFound = () => {
   }
 
   return (
-    <Flex direction="column" justify="center" align="center">
+    <Flex direction="column" justify="center" align="center" mt={'5%'}>
       <Gif gif={gif} width={300} />
+      <Text>404! NOT FOUND</Text>
     </Flex>
   );
 };

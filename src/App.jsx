@@ -35,6 +35,7 @@ function App() {
                 <Route path='/producto/:productId' element={<ItemDetailContainer />} />
                 <Route path='/cart' element={<Cart />}/>
                 <Route path='/checkout' element={<Checkout />}/>
+                <Route path='/page_not_found' element={<PageNotFound />}/>
                 <Route path='*' element={<PageNotFound  />} /> 
               </Routes>
           </BrowserRouter>

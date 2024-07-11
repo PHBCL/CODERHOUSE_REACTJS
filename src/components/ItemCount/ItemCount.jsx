@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Button, Flex, Heading } from '@chakra-ui/react'
+import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react'
 import './ItemCount.css'
 
 const ItemCount = ({stock, initialValue, onAdd, maxAvailable}) => {
@@ -25,6 +25,14 @@ const ItemCount = ({stock, initialValue, onAdd, maxAvailable}) => {
 
   return (
     <Flex m={5} ml={6} >
+      {
+        stock === 0 ? (
+        <Box className='counterContainer'>
+          <Text>Producto sin stock</Text>
+        </Box>
+        ):
+        (
+        <>
         <Box className='counterContainer'>
           <Button         
             bg={'#243F4D'} 
@@ -55,6 +63,8 @@ const ItemCount = ({stock, initialValue, onAdd, maxAvailable}) => {
               >Agregar al carrito
             </Button>
         </Box>
+        </>)
+        }
    </Flex>
   )
 }
