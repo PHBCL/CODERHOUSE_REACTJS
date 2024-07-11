@@ -8,6 +8,7 @@ import PageNotFound from './components/PageNotFound/PageNotFound'
 import { CartContextProvider } from './context/CartContext'
 import Checkout from './components/Checkout/Checkout'
 import Cart from './components/Cart/Cart'
+import ResumeOrder from './components/Checkout/ResumeOrder'
 
 const theme = extendTheme({
   colors: {
@@ -36,6 +37,7 @@ function App() {
                 <Route path='/cart' element={<Cart />}/>
                 <Route path='/checkout' element={<Checkout />}/>
                 <Route path='/page_not_found' element={<PageNotFound />}/>
+                <Route path='/resumeOrder' element={<ResumeOrder />}/>
                 <Route path='*' element={<PageNotFound  />} /> 
               </Routes>
           </BrowserRouter>

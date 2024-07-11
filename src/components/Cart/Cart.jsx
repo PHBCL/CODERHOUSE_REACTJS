@@ -1,4 +1,4 @@
-import { Button, Heading } from '@chakra-ui/react'
+import { Button, Heading, Text } from '@chakra-ui/react'
 import React, { useContext } from 'react'
 import Context from '../../context/CartContext'
 import {
@@ -9,13 +9,14 @@ import {
     Tr,
     Th,
     Td,
-    TableCaption,
     TableContainer,
     Flex
   } from '@chakra-ui/react'
   import { RiDeleteBin5Line } from "react-icons/ri";
   import {Link } from 'react-router-dom'
   import { NumericFormat } from 'react-number-format';
+import Steps from './Steps';
+  
 
 const Cart = () => {
     const { cart, removeItem, clearCart, getTotal, incrementarItem, decrementarItem } = useContext(Context)
@@ -23,13 +24,17 @@ const Cart = () => {
         return (
             <Flex direction={'column'} justify={'center'} align={'center'} mt={10}>
                 <Heading>Todavía no agregaste productos al carrito</Heading>
-            <Link to='/'>Ver productos</Link>
-        </Flex>
+                <Link to='/'>Ver productos</Link>
+            </Flex>
     )
     }else {
 
   return (
-    <Flex w={'70%'} ml={'50vh'}>
+    <>
+    <Flex ml={'70vh'} align={'center'}>
+          <Steps actualStep={1}  />
+    </Flex>
+    <Flex w={'70%'} ml={'50vh'} mt={'10vh'} >
         <TableContainer >
         <Table variant='striped' colorScheme='teal' >
             <Thead>
@@ -49,9 +54,9 @@ const Cart = () => {
                             <Td>{prod.nombre}</Td>
                             <Td>{prod.quantity}</Td>
                             <Td>
-                                <Button onClick={() => decrementarItem(prod.id)}>-</Button>
+                                <Button onClick={() => decrementarItem(prod.id)} mr={'10px'}>-</Button>
                                 {prod.quantity}
-                                <Button onClick={() => incrementarItem(prod.id, prod.stock)}>+</Button>
+                                <Button onClick={() => incrementarItem(prod.id, prod.stock)} ml={'10px'}>+</Button>
                             </Td>
                             <Td>$<NumericFormat value={prod.precio} displayType={'text'} thousandSeparator/></Td>
                             <Td>$<NumericFormat value={prod.precio * prod.quantity} displayType={'text'} thousandSeparator/> </Td>
@@ -67,13 +72,17 @@ const Cart = () => {
             <Tfoot>
             <Tr>
                 <Th><Button onClick={() => clearCart()}>Vaciar carrito </Button></Th>
-                <Th><Heading>$<NumericFormat value={getTotal()} displayType={'text'} thousandSeparator/>  </Heading></Th>
-                <Th><Link to='/checkout'>Finalizar compra</Link></Th>
+                <Th></Th>
+                <Th></Th>
+                <Th></Th>
+                <Th><Text >$<NumericFormat value={getTotal()} displayType={'text'} thousandSeparator/></Text></Th>
+                <Th><Button color={'green'}><Link to='/checkout'>Finalizar compra</Link></Button></Th>
             </Tr>
             </Tfoot>
         </Table>
         </TableContainer>
     </Flex>
+    </>
   )
 }
 

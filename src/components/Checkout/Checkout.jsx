@@ -15,6 +15,7 @@ import { Timestamp, addDoc, collection, doc, getDoc, updateDoc } from 'firebase/
 import { db } from '../../config/firebase'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
+import Steps from '../Cart/Steps'
 
 
 const Checkout = () => {
@@ -27,7 +28,7 @@ const Checkout = () => {
     const [ error, setError ] = useState({})
     const [ loading, setLoading ] = useState(false)
 
-    const { cart, getTotal, clearCart } = useContext(Context)
+    const { cart, getTotal, clearCart, cartResume } = useContext(Context)
     const navigate = useNavigate()
     const updateUser = (event) => {
         setUser((user) => ({
@@ -107,10 +108,11 @@ const Checkout = () => {
                         title: "Gracias por tu compra",
                         text: `El número de orden es: ${orderRef.id}`,
                         icon: "success",
-                        confirmButtonText: "Ir al inicio",
+                        confirmButtonText: "Ir Pagina confirmacion",
                       }).then(() => {
+                         cartResume(orderRef.id, cart)
                          clearCart()
-                         navigate('/')
+                         navigate('/resumeOrder')
                       });
 
                 }else{
@@ -126,7 +128,13 @@ const Checkout = () => {
         }
     }
   return (
+    <>
+    <Flex ml={'70vh'} align={'center'}>
+          <Steps actualStep={2}  />
+        </Flex>
+    
     <Center mt={10}>
+        
         <Flex direction={'column'} align={'center'} justify={'center'}>
             <Heading>Datos de facturación</Heading>
             <Flex w={'100%'} justify={'center'} align={'center'}>
@@ -170,6 +178,9 @@ const Checkout = () => {
             </Button>
         </Flex>
     </Center>
+
+    
+    </>
   )
 }
 
