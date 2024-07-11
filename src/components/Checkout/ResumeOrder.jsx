@@ -9,20 +9,17 @@ import {
     Td,
     TableContainer,
     Flex,
-    Heading,
     Text,
     Button
   } from '@chakra-ui/react'
-  import {Link, Navigate, useNavigate } from 'react-router-dom'
+  import {Link, useNavigate } from 'react-router-dom'
   import { NumericFormat } from 'react-number-format';
 import Steps from './../Cart/Steps';
   
 
 const ResumeOrder = () => {
-    const { resumeCart, clearResumeCart} = useContext(Context)
+    const { resumeCart } = useContext(Context)
     const navigate = useNavigate()
-    console.log(resumeCart)
-    console.log(resumeCart.cart)
     return (
     <>
     <Flex ml={'70vh'} align={'center'}>

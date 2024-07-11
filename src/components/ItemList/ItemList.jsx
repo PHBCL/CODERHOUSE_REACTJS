@@ -3,7 +3,6 @@ import Item from '../Item/Item'
 import { Box, Flex } from '@chakra-ui/react'
 
 const ItemList = ({products}) => {
-  console.log(products)
   return (
     <Flex wrap={'wrap'} justify={'center'} align={'center'} mt={5} mb={5}>
       {products.map((el) => (
