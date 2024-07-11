@@ -55,7 +55,7 @@ const ItemDetail = ({precio_real, categoria, descripcion, img, nombre, precio, i
                     </Text>
                   { precio_real > 0 ?
                     <Text fontSize='m' color={'lightgray'} pt={'3px'} ml={'7px'} as='s'>
-                       $<NumericFormat value={precio} displayType={'text'} thousandSeparator/>
+                       $<NumericFormat value={precio_real} displayType={'text'} thousandSeparator/>
                     </Text> : <Box></Box>
                   }
               </Flex>

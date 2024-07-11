@@ -53,7 +53,7 @@ const ItemListContainer = ({title, texto}) => {
           <RiseLoader color="#36d7b7" />
         </Flex>
         : 
-        <ItemList products={products} texto={texto}/>
+        <ItemList products={products}/>
       }
     </Flex>
   )

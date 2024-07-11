@@ -1,8 +1,8 @@
 import React from 'react'
-import { Card, CardBody, CardFooter, Image, Stack, Text, Button, Divider, Heading, Center, Flex } from '@chakra-ui/react'
+import { Card, CardBody, CardFooter, Image, Stack, Text, Button, Divider, Heading, Center, Flex, Badge } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
-const Item = ({nombre, precio, stock, img, id, texto}) => {
+const Item = ({nombre, precio, stock, img, id, descripcion_corta,precio_real}) => {
   return (
     <Card maxW='sm' border='3px' borderColor='#243F4D' boxShadow='2xl'>
 
@@ -18,10 +18,15 @@ const Item = ({nombre, precio, stock, img, id, texto}) => {
         />
         <Stack mt='6' spacing='3'>
           <Heading size='md'>{nombre}</Heading>
-          <Heading size={'sm'}>{texto}</Heading>
+          <Heading size={'sm'}>{descripcion_corta}</Heading>
           <Text color='blue.600' fontSize='2xl'>
             ${precio}
-          </Text>
+            {
+              precio_real > 0 && ( 1- (precio / precio_real) ) * 100 > 0 ?
+                <Badge colorScheme='green' ml={'5px'}>{ (((precio / precio_real) * 100) - 100).toFixed(0) }% descuento</Badge>
+              :<></>
+            }
+          </Text> 
           <Text color='blue.600' fontSize='2xl'>
             stock: {stock}
           </Text>
